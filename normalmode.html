@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Note maker</title>
+	<style>
+		{
+			box-sizing: border-box;
+		}
+		body{
+		background-color: #F4DECB;
+		margin:0;
+		padding:0;
+		min-height:1200px;
+		font-family:verdana;
+		}
+/*STYLE FOR ADDNOTE BUTTON*/	
+	.buttonstyle{
+		box-shadow: 0 5px 10px 0 # ;
+		border:2px solid white;
+		border-radius: 3px;
+		width:20%;
+		font-size: 20px;
+		text-align: center;
+		color:white;
+		background-color: #94618a;
+		padding: 10px 0;
+		display: block;	
+		} 
+	.buttonstyle:hover {
+		background-color: #49274a;
+		}
+/*STYLE FOR HEADER AREA*/
+	.heading {
+		color:white;
+		text-align: center;
+		margin:0px;
+		padding-top:50px;
+		padding-bottom: 0;
+		font-size: 50px;
+		line-height: 80px;
+		}
+	#form {
+		background-color: #94618E;
+		margin-bottom:100px;
+		padding-bottom:80px;
+		box-shadow: 0 0 20px 0 #49274a;
+		}
+/*STYLE FOR NEWLYCREATED NOTES AND ITS BUTTONS*/
+	.xstyle {
+		position: relative;
+		right: 0;
+        top: 0;
+        padding: 12px 16px 12px 16px;
+        margin-left: 5px;
+		}
+	.xstyle:hover {
+		background-color: #f44336;
+    	color: white;
+		}
+	.jstyle {
+		margin-left: 10px; 
+		}
+	.ystyle {
+		position: relative;
+		right: 0;
+        top: 0;
+        right-margin:20px;
+        padding: 12px 16px 12px 16px;
+		}
+	.ystyle:hover {
+		background-color: #49274a;
+    	color: white;
+    	}	
+	.d2style{
+		display:block;
+		width: 97%;
+		height:75%;
+		margin-top: 50px;
+		padding-top: 80px;
+		background-color: transparent;
+		opacity: 1;
+		padding:5px;
+	}
+	 ul.liststyle {
+	 	margin-left:50px;
+	 	list-style-type: none;
+	 	margin-top:50px;
+	 }
+	 li.listelementstyle {
+	 	border: 2px solid white;
+	 	background-color: #f8eee7;
+	 	color: black;
+	 	border-radius: 3px;
+	 	font-size: 20px;
+	 	padding:10px;
+	 	text-align:left;
+	 	display:inline-block;
+	 	float:left;
+	 	margin-right: 9%;
+	 	margin-bottom: 60px;
+	 	margin-top: 80px;
+	 	width: 22%;
+	 	min-width:22%;
+	 	height: 250px;
+	 	word-wrap: break-word;
+	 	overflow-y:auto;	
+	 }
+	 li.listelementstyle:hover {
+	 	background-color: #94618E;
+	 	box-shadow: 1px 1px 1px 1px black;
+	 	color:white;
+	 	overflow-y:auto;		
+	 }
+	</style>
+</head>
+<body>	
+		<div id="form">
+		<h1 class="heading">Note Maker</h1><br>
+		<wordWrap = "break-word";>
+		<center>
+		<label class ="buttonstyle" for="addNote">Add Note</label>
+		<input type="button" id="addNote" style="display:none;"">
+		</center>
+		</div>
+		<div id="main">
+		<ul class="liststyle" id="notes">
+		</ul>
+		</div>
+	<script>
+	window.onload = window.alert("Note: This page is not responsive")
+	document.getElementById("addNote").onclick = creating;
+	var counter=0;
+//FUNCTION TO GET VALUE FROM TEXTAREA	
+	function assigning () {
+		var val = this.id.replace("y", "j"); 
+		var valr = document.getElementById(val).value; 
+		var list1 = this.id.replace("y", "d2"); 
+		var list1r = document.getElementById(list1).value; 
+		document.getElementById(val).value = list1r;
+	}
+//FUNCTION TO EDIT VALUE OF NOTE AND SAVE IN TEXT AREA
+	function editing () {
+		var val = this.id.replace("y", "j"); //denotes id of textarea
+		var valr = document.getElementById(val).value; //denotes value of textarea
+		var list1 = this.id.replace("y", "d2"); //denotes id of listtext
+		var list1r = document.getElementById(list1).value; //denotes value of listtext
+		document.getElementById(list1).textContent = valr;
+	}
+//FUNCTION TO DELETE NOTE
+	function deleting() {
+		var del = this.id.replace("x", "li");
+		document.getElementById(del).style.display ="none";
+	}
+//FUNCTION TO CREATE NOTE WITH UNIQUE ID
+	function creating() {
+		var list = document.createElement("li"); 
+		var x = document.createElement('button');
+		var y = document.createElement('button');
+		var j = document.createElement('textarea');
+		var d1 = document.createElement('div');
+		var d2 = document.createElement('div');
+		var t = document.createTextNode("");       
+		list.className = "listelementstyle";
+		list.id='li' + counter;
+		x.className = "xstyle";       
+		x.id ='x' + counter;
+		x.textContent="X";
+		x.style.float = "right";
+		x.onclick = deleting;
+		y.className = "ystyle";
+		y.id = 'y' + counter;
+		y.textContent="Save";
+		y.style.float = "right" 
+		y.onclick = editing	;
+		j.className = "jstyle";
+		j.id = "j" + counter;
+		j.style.float ="left";
+		d1.className = "d1style";
+		d2.className = "d2style";
+		d1.id = 'd1' + counter;
+		d2.id = 'd2' + counter;
+		d1.appendChild(j);
+		d1.appendChild(x);
+		d1.appendChild(y); 
+		d2.appendChild(t)
+		list.appendChild(d1);
+		list.appendChild(d2);                            
+		document.getElementById("notes").appendChild(list);
+		counter+=1;       
+	}
+	</script>
+</body>
+</html>
